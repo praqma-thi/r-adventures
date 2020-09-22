@@ -1,14 +1,19 @@
 ## DEPENDENCIES
 
 # Tidyverse
-install.packages("tidyverse")
+#install.packages("tidyverse")
 library(tidyverse)
 library(magrittr)
+
+# Rokémon
+#install.packages("devtools")
+#devtools::install_github("schochastics/Rokemon")
+library(Rokemon)
 
 ## SCRIPT
 
 # load data
-pokemon <- file.choose() %>% read.csv() %>% as_tibble()
+data(pokemon)
 
 # select typings subset
 pokemon_typings <- pokemon %>% select(name, type1, type2)
@@ -20,5 +25,5 @@ type_count <- bind_rows(type1_count, type2_count) %>% group_by(type) %>% summari
 
 # plot it out
 type_count_plot <- ggplot(type_count) +
-    aes(x = n, y = type) +
-    geom_bar(stat = "identity")
+  aes(x = n, y = type) +
+  geom_bar(stat = "identity")
